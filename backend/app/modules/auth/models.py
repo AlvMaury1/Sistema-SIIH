@@ -60,6 +60,7 @@ class Usuario(BaseModel):
     mfa_habilitado = db.Column(db.Boolean, nullable=False, default=False)
     estado = db.Column(db.String(20), nullable=False, default='ACTIVO')
     ultimo_acceso = db.Column(db.DateTime)
+    ultimo_logout = db.Column(db.DateTime)
     intentos_fallidos = db.Column(db.Integer, nullable=False, default=0)
     bloqueado_hasta = db.Column(db.DateTime)
 
