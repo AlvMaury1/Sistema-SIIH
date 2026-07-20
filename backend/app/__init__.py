@@ -30,7 +30,7 @@ def create_app(config_name='default'):
     def verificar_token_revocado(jwt_header, jwt_data):
         from datetime import datetime
         from app.modules.auth.models import Usuario
-        usuario = db.session.get(Usuario, jwt_data['sub'])
+        usuario = db.session.get(Usuario, int(jwt_data['sub']))
         if usuario and usuario.ultimo_logout:
             iat = datetime.utcfromtimestamp(jwt_data['iat'])
             return iat < usuario.ultimo_logout
@@ -42,8 +42,25 @@ def create_app(config_name='default'):
     from app.modules.auth.routes import auth_bp
     app.register_blueprint(auth_bp, url_prefix='/api')
 
-    # Blueprints pendientes — descomentar al implementar cada módulo
-    # from app.modules.pacientes.routes import pacientes_bp
-    # app.register_blueprint(pacientes_bp, url_prefix='/api')
+    from app.modules.pacientes.routes import pacientes_bp
+    app.register_blueprint(pacientes_bp, url_prefix='/api')
+
+    from app.modules.documentos.routes import documentos_bp
+    app.register_blueprint(documentos_bp, url_prefix='/api')
+
+    from app.modules.citas.routes import citas_bp
+    app.register_blueprint(citas_bp, url_prefix='/api')
+
+    from app.modules.atencion.routes import atencion_bp
+    app.register_blueprint(atencion_bp, url_prefix='/api')
+
+    from app.modules.farmacia.routes import farmacia_bp
+    app.register_blueprint(farmacia_bp, url_prefix='/api')
+
+    from app.modules.auditoria.routes import auditoria_bp
+    app.register_blueprint(auditoria_bp, url_prefix='/api')
+
+    from app.modules.reportes.routes import reportes_bp
+    app.register_blueprint(reportes_bp, url_prefix='/api')
 
     return app

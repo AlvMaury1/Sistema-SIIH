@@ -40,7 +40,7 @@ def role_required(*roles):
             verify_jwt_in_request()
             from app.modules.auth.models import Usuario
             from app.extensions import db
-            user_id = get_jwt_identity()
+            user_id = int(get_jwt_identity())
             user = db.session.get(Usuario, user_id)
             g.current_user = user
 
@@ -56,7 +56,7 @@ def role_required(*roles):
                     registrar_auditoria('ACCESO_DENEGADO')
                 except Exception:
                     pass
-                raise ForbiddenError('No tiene permiso para acceder a este recurso.')
+                raise ForbiddenError('No autorizado para acceder a este recurso.')
 
             return fn(*args, **kwargs)
         return wrapper

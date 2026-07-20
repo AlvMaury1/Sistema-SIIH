@@ -51,17 +51,17 @@ def _seed_personal_y_usuarios():
     med_general = Especialidad.query.filter_by(nombre='Medicina General').first()
     urgencias   = Especialidad.query.filter_by(nombre='Urgencias').first()
 
-    # (ci, nombres, apellidos, matricula, rol, especialidad, username, password)
+    # (ci, nombres, apellidos, matricula, rol, especialidad, username, password, email)
     datos = [
-        ('10100001', 'Carlos',  'Mendoza',  'MAT-001', 'medico',         med_general, 'medico01',  'Medico@1234'),
-        ('10100002', 'Ana',     'Rodriguez', None,      'recepcion',      None,        'recep01',   'Recep@1234'),
-        ('10100003', 'Maria',   'Flores',    None,      'enfermera',      urgencias,   'enfer01',   'Enfer@1234'),
-        ('10100004', 'Jorge',   'Lima',      None,      'farmaceutico',   None,        'farm01',    'Farm@1234'),
-        ('10100005', 'Luis',    'Castro',    None,      'administrador',  None,        'admin01',   'Admin@1234'),
-        ('10100006', 'Sofia',   'Vargas',    None,      'direccion',      None,        'dir01',     'Direc@1234'),
+        ('10100001', 'Carlos',  'Mendoza',   'MAT-001', 'medico',        med_general, 'medico01', 'Medico@1234',  'carlos.mendoza@husa.bo'),
+        ('10100002', 'Ana',     'Rodriguez',  None,      'recepcion',     None,        'recep01',  'Recep@1234',   'ana.rodriguez@husa.bo'),
+        ('10100003', 'Maria',   'Flores',     None,      'enfermera',     urgencias,   'enfer01',  'Enfer@1234',   'maria.flores@husa.bo'),
+        ('10100004', 'Jorge',   'Lima',       None,      'farmaceutico',  None,        'farm01',   'Farm@1234',    'jorge.lima@husa.bo'),
+        ('10100005', 'Luis',    'Castro',     None,      'administrador', None,        'admin01',  'Admin@1234',   'luis.castro@husa.bo'),
+        ('10100006', 'Sofia',   'Vargas',     None,      'direccion',     None,        'dir01',    'Direc@1234',   'sofia.vargas@husa.bo'),
     ]
 
-    for ci, nombres, apellidos, matricula, rol_nombre, especialidad, username, pwd in datos:
+    for ci, nombres, apellidos, matricula, rol_nombre, especialidad, username, pwd, email in datos:
         if Personal.query.filter_by(ci=ci).first():
             continue
 
@@ -82,6 +82,7 @@ def _seed_personal_y_usuarios():
             db.session.add(Usuario(
                 id_personal=personal.id_personal,
                 nombre_usuario=username,
+                email=email,
                 hash_password=hash_password(pwd),
                 estado='ACTIVO',
             ))
@@ -94,16 +95,16 @@ def _seed_pacientes():
     from app.modules.auth.models import Usuario
     from app.modules.pacientes.models import Paciente
 
-    # (ci, id_unico, nombres, apellidos, fecha_nac, username, password)
+    # (ci, id_unico, nombres, apellidos, fecha_nac, username, password, email)
     datos = [
-        ('20200001', 'HUSA-000001', 'Pedro',  'Gomez',   date(1985,  3, 15), 'pac01', 'Paciente@1234'),
-        ('20200002', 'HUSA-000002', 'Rosa',   'Quispe',  date(1990,  7, 22), 'pac02', 'Paciente@1234'),
-        ('20200003', 'HUSA-000003', 'Juan',   'Mamani',  date(1975, 11,  8), None,    None),
-        ('20200004', 'HUSA-000004', 'Elena',  'Torrico', date(2000,  1, 30), None,    None),
-        ('20200005', 'HUSA-000005', 'Marco',  'Vidal',   date(1968,  5, 12), None,    None),
+        ('20200001', 'HUSA-000001', 'Pedro',  'Gomez',   date(1985,  3, 15), 'pac01', 'Paciente@1234', 'pedro.gomez@gmail.com'),
+        ('20200002', 'HUSA-000002', 'Rosa',   'Quispe',  date(1990,  7, 22), 'pac02', 'Paciente@1234', 'rosa.quispe@gmail.com'),
+        ('20200003', 'HUSA-000003', 'Juan',   'Mamani',  date(1975, 11,  8), None,    None,            None),
+        ('20200004', 'HUSA-000004', 'Elena',  'Torrico', date(2000,  1, 30), None,    None,            None),
+        ('20200005', 'HUSA-000005', 'Marco',  'Vidal',   date(1968,  5, 12), None,    None,            None),
     ]
 
-    for ci, id_unico, nombres, apellidos, fecha_nac, username, pwd in datos:
+    for ci, id_unico, nombres, apellidos, fecha_nac, username, pwd, email in datos:
         if Paciente.query.filter_by(ci=ci).first():
             continue
 
@@ -122,6 +123,7 @@ def _seed_pacientes():
             db.session.add(Usuario(
                 id_paciente=paciente.id_paciente,
                 nombre_usuario=username,
+                email=email,
                 hash_password=hash_password(pwd),
                 estado='ACTIVO',
             ))

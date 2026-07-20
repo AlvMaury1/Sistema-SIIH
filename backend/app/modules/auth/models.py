@@ -38,7 +38,6 @@ class Personal(BaseModel):
     apellidos = db.Column(db.String(100), nullable=False)
     matricula = db.Column(db.String(50))
     telefono = db.Column(db.String(20))
-    email = db.Column(db.String(100))
     estado = db.Column(db.String(20), nullable=False, default='ACTIVO')
 
     rol = db.relationship('Rol', backref='personal_list')
@@ -56,6 +55,7 @@ class Usuario(BaseModel):
     id_personal = db.Column(db.BigInteger, db.ForeignKey('personal.id_personal'))
     id_paciente = db.Column(db.BigInteger, db.ForeignKey('paciente.id_paciente'))
     nombre_usuario = db.Column(db.String(50), nullable=False, unique=True)
+    email = db.Column(db.String(100), nullable=False, unique=True)
     hash_password = db.Column(db.String(255), nullable=False)
     mfa_habilitado = db.Column(db.Boolean, nullable=False, default=False)
     estado = db.Column(db.String(20), nullable=False, default='ACTIVO')
