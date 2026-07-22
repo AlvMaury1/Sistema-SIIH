@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from app.extensions import db, migrate, jwt, ma, cors
 from app.config import config
@@ -11,7 +12,9 @@ def create_app(config_name='default'):
     migrate.init_app(app, db)
     jwt.init_app(app)
     ma.init_app(app)
-    cors.init_app(app, resources={"/api/*": {"origins": ["http://localhost:5173"]}},
+
+    origins = os.environ.get('CORS_ORIGINS', 'http://localhost:5173').split(',')
+    cors.init_app(app, resources={"/api/*": {"origins": [o.strip() for o in origins]}},
                   supports_credentials=True)
 
     with app.app_context():
