@@ -4,9 +4,16 @@ from app.core.security import hash_password
 
 
 def register_commands(app):
+    @app.cli.command('init-db')
+    def init_db():
+        """Crea todas las tablas. Idempotente."""
+        db.create_all()
+        print("Tablas creadas.")
+
     @app.cli.command('seed')
     def seed():
         """Carga datos iniciales. Idempotente: se puede correr varias veces."""
+        db.create_all()
         _seed_roles()
         _seed_especialidades()
         _seed_personal_y_usuarios()
