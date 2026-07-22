@@ -24,10 +24,7 @@ services:
       - key: FLASK_ENV
         value: production
       - key: CORS_ORIGINS
-        fromService:
-          type: web
-          name: siih-frontend
-          property: hostport
+        value: https://siih-frontend.onrender.com
 
   - name: siih-frontend
     type: web
@@ -37,10 +34,7 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: siih-backend
-          property: hostport
+        value: https://siih-backend.onrender.com/api
     routes:
       - type: rewrite
         source: /*
