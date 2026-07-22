@@ -300,23 +300,31 @@ function LoginPage() {
             </strong>
 
             <span>
-              Médico: medico / 123456
+              Administrador: admin01 / Admin@1234
             </span>
 
             <span>
-              Farmacia: farmacia / 123456
+              Dirección: dir01 / Direc@1234
             </span>
 
             <span>
-              Almacén: almacen / 123456
+              Médico: medico01 / Medico@1234
             </span>
 
             <span>
-              Paciente: paciente / 123456
+              Recepción: recep01 / Recep@1234
             </span>
 
             <span>
-              Administrador: admin / 123456
+              Enfermería: enfer01 / Enfer@1234
+            </span>
+
+            <span>
+              Farmacéutico: farm01 / Farm@1234
+            </span>
+
+            <span>
+              Paciente: pac01 / Paciente@1234
             </span>
           </div>
         </div>
